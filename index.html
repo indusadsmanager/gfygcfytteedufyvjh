@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- IG & Mobile Safe Viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
 <title>Gujrati Trader</title>
 
 <!-- FONT AWESOME -->
@@ -10,17 +13,20 @@
 
 <!-- META PIXEL -->
 <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+!function(f,b,e,v,n,t,s){
+if(f.fbq)return;
+n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
+if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];
+t=b.createElement(e);t.async=!0;
+t.src=v;
+s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)
+}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
 
 fbq('init', '766275052546791');
-fbq('track', 'PageView');
 </script>
 
 <noscript>
@@ -29,49 +35,69 @@ src="https://www.facebook.com/tr?id=766275052546791&ev=PageView&noscript=1"/>
 </noscript>
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background: #0f2027;
     color: #fff;
-    text-align: center;
     margin: 0;
     padding: 0;
+    text-align: center;
 }
+
 .container {
-    max-width: 600px;
-    margin: 40px auto;
+    max-width: 380px;
+    margin: 20px auto;
+    padding: 24px 18px;
     background: #0b1320;
-    padding: 30px;
-    border-radius: 20px;
+    border-radius: 16px;
 }
+
 .logo {
-    width: 150px;
-    height: 150px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
-    box-shadow: 0 0 30px gold;
+    box-shadow: 0 0 18px gold;
+    margin-bottom: 10px;
 }
+
 .neon {
-    font-size: 32px;
-    font-weight: 900;
-    text-shadow: 0 0 15px #00fff0;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 10px 0;
+    text-shadow: 0 0 10px #00fff0;
 }
+
 .crown {
     color: gold;
-    margin-right: 8px;
+    margin: 0 6px;
 }
+
+.subtitle {
+    font-size: 15px;
+    line-height: 1.4;
+    opacity: 0.9;
+    margin-bottom: 18px;
+}
+
 .cta {
-    margin-top: 25px;
-    padding: 18px 35px;
-    font-size: 20px;
-    font-weight: bold;
-    border-radius: 50px;
-    color: #fff;
+    display: block;
+    width: 100%;
+    padding: 16px;
+    font-size: 17px;
+    font-weight: 700;
+    border-radius: 40px;
     background: linear-gradient(45deg,#ff416c,#ff4b2b);
+    color: #fff;
     text-decoration: none;
-    display: inline-block;
 }
+
 .micro {
-    font-size: 13px;
+    font-size: 12.5px;
     margin-top: 6px;
     color: #7dffb3;
 }
@@ -82,15 +108,18 @@ body {
 
 <div class="container">
 
-<img src="https://uploads.onecompiler.io/446vwj75z/447jwmj5x/WhatsApp%20Image%202025-12-14%20at%2021.40.07.jpeg" class="logo">
+<img src="https://uploads.onecompiler.io/446vwj75z/447jwmj5x/WhatsApp%20Image%202025-12-14%20at%2021.40.07.jpeg" class="logo" alt="Gujrati Trader">
 
 <h1 class="neon">
-<i class="fas fa-crown crown"></i>GUJRATI TRADER<i class="fas fa-crown crown">
+<i class="fas fa-crown crown"></i>
+GUJRATI TRADER
+<i class="fas fa-crown crown"></i>
 </h1>
 
-<p>India’s Elite Stock Market Community</p>
+<div class="subtitle">
+India’s Elite Stock Market Community
+</div>
 
-<!-- TELEGRAM SUBSCRIBE -->
 <a href="https://t.me/+mE0qu2TSzdViMDg9"
    target="_blank"
    class="cta subscribe-btn">
@@ -102,34 +131,40 @@ body {
 </div>
 
 <script>
-/*
-========================================
-1:1 TELEGRAM SUBSCRIBE TRACKING
-ONE DEVICE = ONE EVENT
-========================================
-*/
+/* ================================
+   STRICT 1 DEVICE = 1 EVENT LOGIC
+================================ */
 
+// Keys
+const PAGEVIEW_KEY = "gt_pageview_tracked";
 const SUBSCRIBE_KEY = "gt_subscribe_tracked";
 
+/* -------- PAGE VIEW (ONCE) -------- */
+if (!localStorage.getItem(PAGEVIEW_KEY)) {
+
+    fbq('track', 'PageView');
+
+    localStorage.setItem(PAGEVIEW_KEY, "true");
+    console.log("✅ PageView tracked (1 device)");
+} else {
+    console.log("⛔ PageView already tracked");
+}
+
+/* -------- SUBSCRIBE (ONCE) -------- */
 document.querySelector(".subscribe-btn").addEventListener("click", function () {
 
-    // Check if already tracked on this device
     if (!localStorage.getItem(SUBSCRIBE_KEY)) {
 
-        // Fire Meta conversion ONCE
-        fbq('trackCustom', 'WebSubscribe', {
-            content_name: 'Telegram Join',
-            traffic_source: 'Meta Ads'
+        fbq('track', 'Lead');
+        fbq('trackCustom', 'TelegramSubscribe', {
+            source: 'Landing Page',
+            platform: 'Telegram'
         });
 
-        fbq('track', 'Lead');
-
-        // Lock device
         localStorage.setItem(SUBSCRIBE_KEY, "true");
-
-        console.log("✅ Subscribe tracked (1:1)");
+        console.log("✅ Subscribe tracked (1 device)");
     } else {
-        console.log("⛔ Subscribe already tracked on this device");
+        console.log("⛔ Subscribe already tracked");
     }
 
 });
